@@ -15,7 +15,7 @@ class PredisWorkerRedisClient implements WorkerRedisClient
 
     public function rpush($listName, $value)
     {
-        return $this->predisClient->rpush($listName, $value);
+        $this->predisClient->rpush($listName, $value);
     }
 
     public function blpop($listName)
