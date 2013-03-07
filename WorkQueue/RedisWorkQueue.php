@@ -15,7 +15,7 @@ class RedisWorkQueue implements WorkQueue
         $this->redisClient = $redisClient;
     }
 
-    public function insert($value)
+    public function publish($value)
     {
         $this->redisClient->rpush($this->queueName, $value);
     }

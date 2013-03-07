@@ -22,11 +22,11 @@ class RedisWorkQueueTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldInsertAValue()
+    public function shouldPublishAValue()
     {
         $this->redisClientRPushShouldBeCalledWith(self::IRRELEVANT_VALUE);
 
-        $this->assertEmpty($this->redisWorkQueue->insert(self::IRRELEVANT_VALUE));
+        $this->assertEmpty($this->redisWorkQueue->publish(self::IRRELEVANT_VALUE));
     }
 
     private function redisClientRPushShouldBeCalledWith($with)

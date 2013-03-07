@@ -11,7 +11,7 @@ Add the following to your composer.json file:
 ```json
 {
     "require": {
-        "funddy/worker": "1.0.*"
+        "funddy/worker": "2.0.*"
     }
 }
 ```
@@ -24,45 +24,39 @@ Update the vendor libraries:
 Usage
 -----
 
-### Client
+### Publisher
 ```php
 <?php
 
 require 'vendor/autoload.php';
 
-use Funddy\Component\Worker\RedisClient\PredisRedisClient;
-use Funddy\Component\Worker\WorkChannel\WorkChannel;
-use Funddy\Component\Worker\WorkQueue\RedisWorkQueueFactory;
+use Funddy\Worker\WorkerRedisClient\PredisWorkerRedisClient;
+use Funddy\Worker\WorkQueue\RedisWorkQueue;
 use Predis\Client;
 
 $predisClient = new Client('tcp://localhost');
-$redisClient = new PredisRedisClient($predisClient);
-$workQueueFactory = new RedisWorkQueueFactory($redisClient);
-$workChannel = new WorkChannel($workQueueFactory);
+$redisClient = new PredisWorkerRedisClient($predisClient);
+$queue = new RedisWorkQueue('myqueue', $redisClient);
 
-$workChannel->declareQueue('myqueue');
-$workChannel->publish('myqueue', 'Hello world!');
+$queue->publish('Hello world!');
 ```
 
-### Server
+### Consumer
 ```php
 <?php
 
 require 'vendor/autoload.php';
 
-use Funddy\Component\Worker\RedisClient\PredisRedisClient;
-use Funddy\Component\Worker\WorkChannel\WorkChannel;
-use Funddy\Component\Worker\WorkQueue\RedisWorkQueueFactory;
+use Funddy\Worker\WorkerRedisClient\PredisWorkerRedisClient;
+use Funddy\Worker\WorkQueue\RedisWorkQueue;
 use Predis\Client;
 
 $predisClient = new Client('tcp://localhost');
-$redisClient = new PredisRedisClient($predisClient);
-$workQueueFactory = new RedisWorkQueueFactory($redisClient);
-$workChannel = new WorkChannel($workQueueFactory);
+$redisClient = new PredisWorkerRedisClient($predisClient);
+$queue = new RedisWorkQueue('myqueue', $redisClient);
 
-$workChannel->declareQueue('myqueue');
 while(true) {
-    $message = $workChannel->consume('myqueue');//Blocking
+    $message = $queue->consume();//Blocking
     echo $message;
 }
 ```
