@@ -1,19 +1,15 @@
 <?php
 
-namespace Funddy\Component\Worker\WorkQueue;
+namespace Funddy\Worker\WorkQueue;
 
-use Funddy\Component\Worker\RedisClient\RedisClient;
+use Funddy\Worker\WorkerRedisClient\WorkerRedisClient;
 
-/**
- * @copyright (C) Funddy (2012)
- * @author Keyvan Akbary <keyvan@funddy.com>
- */
 class RedisWorkQueue implements WorkQueue
 {
     private $queueName;
     private $redisClient;
 
-    public function __construct($queueName, RedisClient $redisClient)
+    public function __construct($queueName, WorkerRedisClient $redisClient)
     {
         $this->queueName = $queueName;
         $this->redisClient = $redisClient;
@@ -24,7 +20,7 @@ class RedisWorkQueue implements WorkQueue
         $this->redisClient->rpush($this->queueName, $value);
     }
 
-    public function extractFirst()
+    public function consume()
     {
         return $this->redisClient->blpop($this->queueName);
     }

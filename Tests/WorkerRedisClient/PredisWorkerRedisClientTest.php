@@ -1,15 +1,11 @@
 <?php
 
-namespace Funddy\Component\Worker\Tests\RedisClient;
+namespace Funddy\Worker\Tests\WorkerRedisClient;
 
-use Funddy\Component\Worker\RedisClient\PredisRedisClient;
+use Funddy\Worker\WorkerRedisClient\PredisWorkerRedisClient;
 use Mockery as m;
 
-/**
- * @copyright (C) Funddy (2012)
- * @author Keyvan Akbary <keyvan@funddy.com>
- */
-class PredisRedisClientTest extends \PHPUnit_Framework_TestCase
+class PredisWorkQueueRedisClientTest extends \PHPUnit_Framework_TestCase
 {
     const IRRELEVANT_LIST_NAME = 'XX';
     const IRRELEVANT_VALUE = 'XXX';
@@ -20,7 +16,7 @@ class PredisRedisClientTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->predisClientMock = m::mock('Predis\Client');
-        $this->predisRedisClient = new PredisRedisClient($this->predisClientMock);
+        $this->predisRedisClient = new PredisWorkerRedisClient($this->predisClientMock);
     }
 
     /**

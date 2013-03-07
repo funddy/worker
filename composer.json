@@ -8,8 +8,7 @@
     "authors": [
         {
             "name": "Keyvan Akbary",
-            "email": "keyvan@funddy.com",
-            "homepage": "http://keyvanakbary.com/"
+            "email": "keyvan@funddy.com"
         }
     ],
     "require": {
@@ -21,15 +20,15 @@
         "mockery/mockery": "0.7.2"
     },
     "autoload": {
-        "psr-0": { "Funddy\\Component\\Worker": "" }
+        "psr-0": { "Funddy\\Worker": "" }
     },
-    "target-dir": "Funddy/Component/Worker",
+    "target-dir": "Funddy/Worker",
     "config": {
         "bin-dir": "bin"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "2.0.x-dev"
         }
     }
 }

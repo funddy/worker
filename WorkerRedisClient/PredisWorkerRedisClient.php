@@ -1,14 +1,10 @@
 <?php
 
-namespace Funddy\Component\Worker\RedisClient;
+namespace Funddy\Worker\WorkerRedisClient;
 
 use Predis\Client;
 
-/**
- * @copyright (C) Funddy (2012)
- * @author Keyvan Akbary <keyvan@funddy.com>
- */
-class PredisRedisClient implements RedisClient
+class PredisWorkerRedisClient implements WorkerRedisClient
 {
     private $predisClient;
 

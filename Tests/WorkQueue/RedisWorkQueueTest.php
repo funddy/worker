@@ -1,14 +1,10 @@
 <?php
 
-namespace Funddy\Component\Worker\Tests\WorkQueue;
+namespace Funddy\Worker\Tests\WorkQueue;
 
-use Funddy\Component\Worker\WorkQueue\RedisWorkQueue;
+use Funddy\Worker\WorkQueue\RedisWorkQueue;
 use Mockery as m;
 
-/**
- * @copyright (C) Funddy (2012)
- * @author Keyvan Akbary <keyvan@funddy.com>
- */
 class RedisWorkQueueTest extends \PHPUnit_Framework_TestCase
 {
     const IRRELEVANT_QUEUE_NAME = 'XXX';
@@ -19,14 +15,14 @@ class RedisWorkQueueTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->redisClientMock = m::mock('Funddy\Component\Worker\RedisClient\RedisClient');
+        $this->redisClientMock = m::mock('Funddy\Worker\WorkerRedisClient\WorkerRedisClient');
         $this->redisWorkQueue = new RedisWorkQueue(self::IRRELEVANT_QUEUE_NAME, $this->redisClientMock);
     }
 
     /**
      * @test
      */
-    public function insert()
+    public function shouldInsertAValue()
     {
         $this->redisClientRPushShouldBeCalledWith(self::IRRELEVANT_VALUE);
 
@@ -41,11 +37,11 @@ class RedisWorkQueueTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function extractFirst()
+    public function shouldConsumeAValue()
     {
         $this->redisClientBLPopShouldBeCalledAndReturn(self::IRRELEVANT_VALUE);
 
-        $this->assertThat($this->redisWorkQueue->extractFirst(), $this->identicalTo(self::IRRELEVANT_VALUE));
+        $this->assertThat($this->redisWorkQueue->consume(), $this->identicalTo(self::IRRELEVANT_VALUE));
     }
 
     private function redisClientBLPopShouldBeCalledAndReturn($return)
