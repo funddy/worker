@@ -5,24 +5,11 @@ Funddy Worker
 
 Simple asynchronous worker library based on Redis queues.
 
-Setup and Configuration
------------------------
-Add the following to your composer.json file:
-```json
-{
-    "require": {
-        "funddy/worker": "2.0.*"
-    }
-}
-```
+## Installation
 
-Update the vendor libraries:
+    composer require funddy/worker
 
-    curl -s http://getcomposer.org/installer | php
-    php composer.phar install
-
-Usage
------
+## Usage
 
 ### Publisher
 ```php
@@ -42,6 +29,7 @@ $queue->publish('Hello world!');
 ```
 
 ### Consumer
+
 ```php
 <?php
 
